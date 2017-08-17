@@ -20,3 +20,5 @@ clf = tree.DecisionTreeClassifier()
 clf.fit(train_data, train_target)
 
 print clf.predict(test_data)
+
+
