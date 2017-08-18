@@ -1,5 +1,8 @@
 import random 
+from scipy.spatial import distance 
 
+def euc(a,b):
+	return distance.euclidean(a,b)
 
 #We created our own classifier to guess randomly a flower testing set. 
 class SimpleKNN():
@@ -10,9 +13,19 @@ class SimpleKNN():
 	def predict(self, X_test):
 		predictions = []
 		for row in X_test:
-			label = random.choice(self.Y_train)
+			label = self.closest(Y_train)
 			predictions.append(label)
 		return predictions
+
+	def closest(self, row):
+		best_dist= euc(row, self.X_train[0])
+		best_index = 0
+		for i in range(1, len(self.X_train)):
+			dist = euc(row, self.X_train[i])
+			if dist<best_dist:
+				best_dist = dist
+				best_index = i
+		return self.Y_train[best_index]
 
 from sklearn import datasets
 import numpy as np
